@@ -178,7 +178,6 @@ st.title("Generowanie napisów do filmu 🧾")
 st.subheader("""
 Aplikacja do transkrypcji wideo
 
-Opis
 Aplikacja umożliwia użytkownikowi przesłanie pliku wideo, wyodrębnienie z niego dźwięku,
 transkrypcję mowy na tekst, generowanie napisów SRT oraz opcjonalne ich tłumaczenie na język polski.
 Dodatkowo generuje podsumowanie filmu na podstawie transkrypcji.
