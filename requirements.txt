@@ -1,0 +1,9 @@
+streamlit
+hashlib
+tempfile
+os
+srt
+pydub
+python-dotenv
+openai
+datetime
