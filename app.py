@@ -8,15 +8,12 @@ from io import BytesIO
 from dotenv import load_dotenv
 import openai
 from datetime import timedelta
-import imageio_ffmpeg as ffmpeg  # Dodaj import na początku
+
 
 
 # Załaduj zmienne środowiskowe
 load_dotenv()
 
-# Sprawdzenie lokalizacji ffprobe (możesz wyświetlić to w konsoli, jeśli potrzebujesz)
-ffprobe_path = ffmpeg.get_ffmpeg_exe()
-print("FFprobe path:", ffprobe_path)  # To wyświetli ścieżkę do ffprobe w konsoli
 
 st.markdown(
     """
@@ -85,7 +82,7 @@ def transcribe_audio():
         return
     
     try:
-        client = openai.DeepAI(api_key=st.session_state.openai_api_key)
+        client = openai.OpenAI(api_key=st.session_state.openai_api_key)
         with open(audio_path, "rb") as f:
             with st.spinner("Transkrypcja w toku..."):
                 transcript = client.audio.transcriptions.create(
@@ -128,7 +125,7 @@ def translate_srt():
         st.error("Najpierw wygeneruj plik SRT.")
         return
     
-    client = openai.DeepAI(api_key=st.session_state.openai_api_key)
+    client = openai.OpenAI(api_key=st.session_state.openai_api_key)
     
     with st.spinner("Tłumaczenie na język polski..."):
         response = client.chat.completions.create(
@@ -148,7 +145,7 @@ def generate_summary():
         return
     
     try:
-        client = openai.DeepAI(api_key=st.session_state.openai_api_key)
+        client = openai.OpenAI(api_key=st.session_state.openai_api_key)
         with st.spinner("Generowanie podsumowania..."):
             response = client.chat.completions.create(
                 model="gpt-4-turbo",
@@ -164,14 +161,14 @@ def generate_summary():
 
 api_key = os.getenv("OPENAI_API_KEY")
 if not api_key:
-    api_key = st.text_input("Podaj swój klucz API DeepAI", type="password")
+    api_key = st.text_input("Podaj swój klucz API OpenAI", type="password")
     if api_key:
         os.environ["OPENAI_API_KEY"] = api_key
         st.session_state.openai_api_key = api_key
-        st.success("Klucz API DeepAI został ustawiony.")
+        st.success("Klucz API OpenAI został ustawiony.")
 else:
     st.session_state.openai_api_key = api_key
-    st.success("Klucz API DeepAI załadowany z pliku .env.")
+    st.success("Klucz API OpenAI załadowany z pliku .env.")
 
 # Inicjalizacja klucza session_state "srt_text_translated" jeśli nie istnieje
 if "srt_text_translated" not in st.session_state:
@@ -195,7 +192,7 @@ Funkcje:
 5. Generowanie podsumowania
 
 Uwagi:
-* Użytkownik powinien mieć własny klucz API DeepAI.
+* Użytkownik powinien mieć własny klucz API OpenAI.
 * Użytkownik przesyła plik wideo w formatach (mp4, mov, avi).
 
 """)
