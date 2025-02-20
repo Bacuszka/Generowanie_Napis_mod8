@@ -3,3 +3,4 @@ srt
 pydub
 python-dotenv
 openai
+imageio[ffmpeg]
