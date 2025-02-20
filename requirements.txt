@@ -1,10 +1,5 @@
 streamlit
-hashlib
-tempfile
-os
 srt
 pydub
 python-dotenv
 openai
-datetime
-pip install -r requirements.txt
